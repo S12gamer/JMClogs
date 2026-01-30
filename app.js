@@ -1,4 +1,4 @@
-/************ FIREBASE CONFIG ************/
+
 const firebaseConfig = {
   apiKey: "AIzaSyCJrD1eO4nL1_bcZW6-TJZS0bx_3fuz6IY",
   authDomain: "dbsss001-7053d.firebaseapp.com",
@@ -10,14 +10,14 @@ const firebaseConfig = {
   measurementId: "G-6XXY2QYR8H"
 };
 
-// Inicializar Firebase
+
 firebase.initializeApp(firebaseConfig);
 try {
   const appCheck = firebase.appCheck();
   appCheck.activate(
     new firebase.appCheck.ReCaptchaEnterpriseProvider('6LcsJlosAAAAAOEDWJhdM4rQP9TOBVH6YYxpBlLC'),
-    true // Refresco automático
-  ); // <--- Aquí estaba el error de los paréntesis
+    true 
+  ); 
   console.log("App Check activado con éxito");
 } catch (err) {
   console.error("Error en App Check:", err);
@@ -25,7 +25,6 @@ try {
 const db = firebase.database();
 const auth = firebase.auth();
 
-/************ FUNCIONES DE APOYO ************/
 function fixDriveUrl(url) {
   if (!url) return "";
   let cleanUrl = url.replace(/\\/g, "").replace(/"/g, "").trim();
@@ -36,7 +35,6 @@ function fixDriveUrl(url) {
   return cleanUrl;
 }
 
-/************ AUTH ************/
 function login() {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
@@ -68,7 +66,6 @@ auth.onAuthStateChanged(user => {
   }
 });
 
-/************ MODALES ************/
 function openAddUserModal() {
   addUserModal.style.display = "flex";
 }
@@ -79,7 +76,6 @@ function closeListModal() {
   listModal.style.display = "none";
 }
 
-/************ WORKS ************/
 function loadWorks() {
   db.ref("/Lists/works").once("value", s => {
     worksCheckbox.checked = s.val() === "yes";
@@ -89,7 +85,6 @@ function toggleWorks() {
   db.ref("/Lists/works").set(worksCheckbox.checked ? "yes" : "no");
 }
 
-/************ STDID ************/
 function loadStdidList() {
   filterStdid.innerHTML = '<option value="">Todos</option>';
   addStdid.innerHTML = '<option value="">Seleccionar</option>';
@@ -98,7 +93,6 @@ function loadStdidList() {
     const set = new Set();
     snap.forEach(u => {
       const data = u.val();
-      // Verificamos que no sea el nodo "Lists" antes de procesar como usuario
       if (u.key !== "Lists" && data && data.stdid && !set.has(data.stdid)) {
         set.add(data.stdid);
         [filterStdid, addStdid].forEach(s => {
@@ -112,13 +106,12 @@ function loadStdidList() {
   });
 }
 
-/************ USERS ************/
 function loadUsers(filter = null) {
   users.innerHTML = "Cargando...";
   db.ref("/").once("value", snap => {
     users.innerHTML = "";
     snap.forEach(u => {
-      if (u.key === "Lists") return; // Ignorar nodo de configuración
+      if (u.key === "Lists") return; 
       const d = u.val();
       if (!d.stdid || (filter && d.stdid !== filter)) return;
 
@@ -137,7 +130,6 @@ function filterUsers() {
   loadUsers(filterStdid.value || null);
 }
 
-/************ LIST ************/
 function viewList(username) {
   const modal = document.getElementById("listModal");
   const listDiv = document.getElementById("fullList");
@@ -247,7 +239,6 @@ function viewList(username) {
   });
 }
 
-/************ ADD USER ************/
 function addUser() {
   const nameVal = document.getElementById("username").value.trim();
   const stdidVal = String(document.getElementById("addStdid").value).trim();
