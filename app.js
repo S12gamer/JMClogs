@@ -14,9 +14,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 try {
   const appCheck = firebase.appCheck();
-  appCheck.activate(new firebase.appCheck.ReCaptchaV3Provider('6LcsJlosAAAAAOEDWJhdM4rQP9TOBVH6YYxpBlLC'), // <--- PEGA AQUÍ TU SITE KEY
+  appCheck.activate('6LcsJlosAAAAAOEDWJhdM4rQP9TOBVH6YYxpBlLC'), // <--- PEGA AQUÍ TU SITE KEY
     true // Refresco automático de tokens
-  );
+  ;
 } catch (err) {
   console.error("Error en App Check:", err);
 }
