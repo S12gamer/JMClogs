@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>JMC ADMIN PROGRAM</title>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-check-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth-compat.js"></script>
+
+  <style>
+    :root {
+      --primary: #4f0f0f;
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --border: #ffffff;
+      --text: #8f2d3a;
+      --muted: #806f6b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      padding: 20px;
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      display: grid;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,.05);
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button.secondary {
+      background: #dfdfdf;
+      color: var(--primary);
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .checkbox-row input {
+      margin: 0;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .muted { color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="container">
+  <div class="card">
+    <h2>Iniciar sesión</h2>
+    <input type="email" id="email" placeholder="Correo">
+    <input type="password" id="password" placeholder="Contraseña">
+    <button onclick="login()">Entrar</button>
+    <p id="loginError" class="muted"></p>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="container" id="appUI" style="display:none;">
+  <h1>JMC ADMIN PROGRAM</h1>
+
+  <div class="card">
+    <button class="secondary" onclick="logout()">Cerrar sesión</button>
+  </div>
+
+  <div class="card">
+    <select id="filterStdid" onchange="filterUsers()">
+      <option value="">Todos</option>
+    </select>
+
+    <label class="checkbox-row">
+      <input type="checkbox" id="worksCheckbox" onchange="toggleWorks()">
+      <span>Día activo</span>
+    </label>
+  </div>
+
+  <div class="card">
+    <button class="secondary" onclick="openAddUserModal()">Agregar usuario</button>
+    <div id="users" class="muted">Cargando...</div>
+  </div>
+</div>
+
+<!-- MODALES -->
+<div id="listModal" class="modal">
+  <div class="modal-content">
+    <label class="checkbox-row">
+      <input type="checkbox" id="userWorkCheckbox">
+      <span>Usuario activo</span>
+    </label>
+    <p id="latestEntry"></p>
+    <div id="fullList"></div>
+    <button onclick="closeListModal()">Cerrar</button>
+  </div>
+</div>
+
+<div id="addUserModal" class="modal">
+  <div class="modal-content">
+    <input id="username" placeholder="ID usuario">
+    <select id="addStdid"></select>
+    <button onclick="addUser()">Guardar</button>
+    <button class="secondary" onclick="closeAddUserModal()">Cancelar</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
