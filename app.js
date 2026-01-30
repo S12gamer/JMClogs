@@ -12,15 +12,14 @@ const firebaseConfig = {
 
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
-
-/** * IMPLEMENTACIÓN DE APP CHECK 
- * Esto asegura que solo tu dominio s12gamer.github.io pueda escribir datos.
- **/
-const appCheck = firebase.appCheck();
-appCheck.activate(new firebase.appCheck.ReCaptchaV3Provider('6LcsJlosAAAAAOEDWJhdM4rQP9TOBVH6YYxpBlLC'), // <--- PEGA AQUÍ TU SITE KEY
-  true // Refresco automático de tokens
-);
-
+try {
+  const appCheck = firebase.appCheck();
+  appCheck.activate(new firebase.appCheck.ReCaptchaV3Provider('6LcsJlosAAAAAOEDWJhdM4rQP9TOBVH6YYxpBlLC'), // <--- PEGA AQUÍ TU SITE KEY
+    true // Refresco automático de tokens
+  );
+} catch (err) {
+  console.error("Error en App Check:", err);
+}
 const db = firebase.database();
 const auth = firebase.auth();
 
