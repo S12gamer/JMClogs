@@ -14,9 +14,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 try {
   const appCheck = firebase.appCheck();
-  appCheck.activate(new firebase.appCheck.ReCaptchaEnterpriseProvider('6LcsJlosAAAAAOEDWJhdM4rQP9TOBVH6YYxpBlLC')), // <--- PEGA AQUÍ TU SITE KEY
-    true // Refresco automático de tokens
-  ;
+  appCheck.activate(
+    new firebase.appCheck.ReCaptchaEnterpriseProvider('6LcsJlosAAAAAOEDWJhdM4rQP9TOBVH6YYxpBlLC'),
+    true // Refresco automático
+  ); // <--- Aquí estaba el error de los paréntesis
+  console.log("App Check activado con éxito");
 } catch (err) {
   console.error("Error en App Check:", err);
 }

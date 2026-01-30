@@ -158,13 +158,5 @@
 </div>
 
 <script src="app.js"></script>
-<script>
-  function onClick(e) {
-    e.preventDefault();
-    grecaptcha.enterprise.ready(async () => {
-      const token = await grecaptcha.enterprise.execute('6LcsJlosAAAAAOEDWJhdM4rQP9TOBVH6YYxpBlLC', {action: 'LOGIN'});
-    });
-  }
-</script>
 </body>
 </html>
