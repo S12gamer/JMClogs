@@ -17,8 +17,7 @@ firebase.initializeApp(firebaseConfig);
  * Esto asegura que solo tu dominio s12gamer.github.io pueda escribir datos.
  **/
 const appCheck = firebase.appCheck();
-appCheck.activate(
-  '6LcsJlosAAAAAOEDWJhdM4rQP9TOBVH6YYxpBlLC', // <--- PEGA AQUÍ TU SITE KEY
+appCheck.activate(new firebase.appCheck.ReCaptchaV3Provider('6LcsJlosAAAAAOEDWJhdM4rQP9TOBVH6YYxpBlLC'), // <--- PEGA AQUÍ TU SITE KEY
   true // Refresco automático de tokens
 );
 
