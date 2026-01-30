@@ -18,7 +18,7 @@ firebase.initializeApp(firebaseConfig);
  **/
 const appCheck = firebase.appCheck();
 appCheck.activate(
-  'TU_ID_DE_CLAVE_DE_RECAPTCHA', // <--- PEGA AQUÍ TU SITE KEY
+  '6LcsJlosAAAAAOEDWJhdM4rQP9TOBVH6YYxpBlLC', // <--- PEGA AQUÍ TU SITE KEY
   true // Refresco automático de tokens
 );
 
